@@ -46,6 +46,6 @@ class QuestionsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.require(:question).permit(:title, :description)
+      params.require(:question).permit(:title, :description, :photo)
     end
 end

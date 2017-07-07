@@ -5,18 +5,12 @@ class QuizzesController < ApiController
   def index
     @quizzes = Quiz.all
 
-    render json: @quizzes.to_json(:include => { :questions => {
-                                                  :include => { :choices => { :only => [:id, :text]}},
-                                  :only => [:id, :title, :description]}},
-                                  :only => [:id, :title, :description])
+    render json: @quizzes, include: ['questions', 'questions.choices']
   end
 
   # GET /quizzes/1
   def show
-    render json: @quiz.to_json(:include => { :questions => {
-                                                  :include => { :choices => { :only => [:id, :text]}},
-                                  :only => [:id, :title, :description]}},
-                                  :only => [:id, :title, :description])
+    render json: @quiz, include: ['questions', 'questions.choices']
   end
 
   # POST /quizzes
