@@ -46,6 +46,6 @@ class ChoicesController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def choice_params
-      params.require(:choice).permit(:question_id, :text)
+      params.require(:choice).permit(:question_id, :text, :answer)
     end
 end

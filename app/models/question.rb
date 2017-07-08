@@ -1,5 +1,6 @@
 class Question < ApplicationRecord
   has_many :choices
+  has_many :responses
   belongs_to :quiz
 
   has_attached_file :photo,

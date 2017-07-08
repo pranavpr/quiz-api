@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707105044) do
+ActiveRecord::Schema.define(version: 20170708114757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170707105044) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "answer", default: false
     t.index ["question_id"], name: "index_choices_on_question_id"
   end
 
@@ -74,6 +75,27 @@ ActiveRecord::Schema.define(version: 20170707105044) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "question_id"
+    t.bigint "choice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["choice_id"], name: "index_responses_on_choice_id"
+    t.index ["question_id"], name: "index_responses_on_question_id"
+    t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "choices", "questions"
   add_foreign_key "questions", "quizzes"
+  add_foreign_key "responses", "choices"
+  add_foreign_key "responses", "questions"
+  add_foreign_key "responses", "users"
 end
